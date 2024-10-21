@@ -46,6 +46,7 @@ export default function Predict73({ model, prediction, setPrediction, started, s
 
   return (
     <Predict
+      title="2. 聲音輸入"
       started={started}
       handlePause={handlePause}
       handlePlay={handlePlay}

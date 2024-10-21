@@ -7,23 +7,20 @@ import {
   Text,
   Title,
   Group,
-  Code,
-  Mark,
   CloseButton,
 } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
 import unzip from '../lib/unzip'
 
-export default function Model({ getRemoteModel, getLocalModel, setModel, defaultUri = '' }) {
-  const [uri, setUri] = useState(defaultUri)
+export default function Model({ getRemoteModel, getLocalModel, setModel }) {
+  const [url, setUrl] = useState('')
   const [file, setFile] = useState(null)
-  const [uriLoading, setUriLoading] = useState(false)
+  const [urlLoading, setUrlLoading] = useState(false)
   const [fileLoading, setFileLoading] = useState(false)
 
   const handleRemote = async () => {
     try {
-      setUriLoading(true)
-      const url = `https://teachablemachine.withgoogle.com/models/${uri}/`
+      setUrlLoading(true)
       const model = await getRemoteModel(url)
       setModel(model)
       notifications.show({ withBorder: true, title: '模型加载成功' })
@@ -31,7 +28,7 @@ export default function Model({ getRemoteModel, getLocalModel, setModel, default
       console.log(err)
       notifications.show({ withBorder: true, color: 'red', title: '模型加载失败' })
     } finally {
-      setUriLoading(false)
+      setUrlLoading(false)
     }
   }
 
@@ -60,45 +57,40 @@ export default function Model({ getRemoteModel, getLocalModel, setModel, default
     resetRef.current?.()
   }
 
-  const isUri = uri !== ''
+  const isUrl = url !== ''
   const isFile = file !== null
 
   return (
     <Stack>
       <Title order={3}>1. 模型</Title>
       <Title order={6} c={isFile ? 'dimmed' : undefined}>
-        网络链接
+        連結
       </Title>
       <Group align="end" justify="space-between">
         <TextInput
           styles={{ root: { flexGrow: 1 } }}
           disabled={isFile}
-          value={uri}
-          onChange={e => setUri(e.currentTarget.value)}
-          placeholder="MODEL_ID"
-          label={
-            <Code>
-              https://teachablemachine.withgoogle.com/models/<Mark>MODEL_ID</Mark>/
-            </Code>
-          }
+          value={url}
+          onChange={e => setUrl(e.currentTarget.value)}
+          placeholder="https://teachablemachine.withgoogle.com/models/MODEL_ID/"
         />
-        <Button disabled={!isUri} loading={uriLoading} onClick={handleRemote}>
-          加载
+        <Button disabled={!isUrl} loading={urlLoading} onClick={handleRemote}>
+          載入
         </Button>
       </Group>
-      <Title order={6} c={isUri ? 'dimmed' : undefined}>
-        本地文件
+      <Title order={6} c={isUrl ? 'dimmed' : undefined}>
+        本機檔案
       </Title>
       {isFile && (
         <Group>
-          <Text>已选择文件：{file.name}</Text>
+          <Text>已選擇檔案：{file.name}</Text>
           <CloseButton onClick={clearFile} />
         </Group>
       )}
       <FileButton resetRef={resetRef} onChange={handleLocal} accept="application/zip">
         {props => (
-          <Button disabled={isUri} loading={fileLoading} {...props}>
-            上传并加载
+          <Button disabled={isUrl} loading={fileLoading} {...props}>
+            上傳並載入
           </Button>
         )}
       </FileButton>

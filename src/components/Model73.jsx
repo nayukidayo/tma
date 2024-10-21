@@ -35,7 +35,6 @@ export default function Model73({ setModel }) {
       getRemoteModel={getRemoteModel}
       getLocalModel={getLocalModel}
       setModel={setModel}
-      defaultUri="iOrzLLpOl"
     />
   )
 }

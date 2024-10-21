@@ -64,16 +64,16 @@ export default function Arduino({ prediction, started }) {
 
   return (
     <Stack>
-      <Title order={3}>4. Arduino</Title>
+      <Title order={3}>4. 連接 Arduino</Title>
       {port ? (
         <Button onClick={serialClose} color="red">
-          关闭串口
+          關閉串口 (COM)
         </Button>
       ) : (
-        <Button onClick={serialOpen}>打开串口</Button>
+        <Button onClick={serialOpen}>打開串口 (COM)</Button>
       )}
       <Select
-        label={<Text>串口发送间隔</Text>}
+        label={<Text>數據傳送時間間隔</Text>}
         checkIconPosition="right"
         data={[
           { value: '1', label: '1s' },
@@ -86,7 +86,7 @@ export default function Arduino({ prediction, started }) {
         onChange={v => v !== null && setTime(v)}
       />
       <Textarea
-        label={<Text>串口发送数据</Text>}
+        label={<Text>數據傳送狀態</Text>}
         disabled
         autosize
         minRows={4}

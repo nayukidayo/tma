@@ -55,6 +55,7 @@ export default function Predict72({ model, prediction, setPrediction, started, s
 
   return (
     <Predict
+      title="2. 影像輸入"
       started={started}
       handlePause={handlePause}
       handlePlay={handlePlay}

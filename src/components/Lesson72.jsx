@@ -5,8 +5,8 @@ import Predict72 from './Predict72'
 export default function Lesson72() {
   return (
     <Lesson
-      title="课程 7.2"
-      description="這是一個 Teachable Machine Image 與 Arduino 關聯的網頁，使用前請更新你的訓練模型。"
+      title="課程 8.2"
+      description="這是一個 Teachable Machine Image Project 與 Arduino 連接的網頁，使用前請更新你的訓練模型。"
     >
       {({ setModel, ...rest }) => (
         <>
